@@ -1,0 +1,52 @@
+///////////////////////////////////////////////////////////////////////////////////////////
+//1. Write java program to accept two file names from user and open first
+//file and create new file (Second name) and copy the data from first file into
+//newly created file.
+///////////////////////////////////////////////////////////////////////////////////////////
+import java.io.*;
+import java.util.Scanner;
+
+class program1
+{
+    public static void main(String[] args)
+    {
+        Scanner sobj = new Scanner(System.in);
+
+        System.out.println("Enter the first file name:");
+        String filename1 = sobj.nextLine();
+
+        System.out.println("Enter the second file name:");
+        String filename2 = sobj.nextLine();
+
+        File file1 = new File(filename1);
+
+        if(!file1.exists())
+        {
+            System.out.println("Source file does not exist");
+            return;
+        }
+
+        try
+        {
+            FileWriter fw = new FileWriter(filename2); 
+            Scanner reader = new Scanner(file1);
+
+            while(reader.hasNextLine())
+            {
+                fw.write(reader.nextLine());
+                fw.write(System.lineSeparator()); 
+            }
+
+            System.out.println("File copied successfully");
+
+            reader.close();
+            fw.close();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        sobj.close();
+    }
+}
